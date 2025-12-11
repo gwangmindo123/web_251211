@@ -3,325 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>반응형 자기소개 - 동적 효과</title>
-    
+    <title>도광민 | 소프트웨어 엔지니어 지망생 포트폴리오</title>
+
+    <!-- 
+      폰트 시스템 (Modern Sans Font System)
+      - 영문: Inter
+      - 한글: Pretendard
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
     <style>
-        /* 기본 스타일 (모바일 우선) */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /*
+          --- 2025-11-06 UI 디자인 시스템 적용 ---
+          1. Sunset Orange 컬러 시스템
+          2. Modern Sans 폰트 시스템
+          3. Mobile First 반응형 전략
+          4. 블로그/아티클 레이아웃 (중앙 컨테이너)
+          5. Rounded Soft 컴포넌트 스타일
+          6. Scale Transform 인터랙션
+          7. CSS Grid Modern 그리드 시스템
+        */
+
+        :root {
+            /* 1. Sunset Orange 컬러 시스템 */
+            --primary: #3498db; /* 파란색 계열로 변경 */
+            --secondary: #5dade2;
+            --accent: #aed6f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg-light: #f4f6f7; /* 밝은 회색 배경 */
+            --text-dark: #17202a; /* 어두운 텍스트 */
+            
+            /* 2. Modern Sans 폰트 시스템 */
+            --font-en: 'Inter', system-ui, sans-serif;
+            --font-ko: 'Pretendard', system-ui, sans-serif;
+
+            /* 6. Rounded Soft 컴포넌트 스타일 */
+            --radius-soft: 12px;
+            --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- 3. Mobile First 반응형 전략 (기본 스타일) --- */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #2c3e50; /* 어두운 배경색으로 변경 */
-            color: #ecf0f1; /* 밝은 텍스트 색상 */
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            
+            /* 2. Modern Sans 폰트 시스템: 16px 기준, 1.6 행간 */
+            font-family: var(--font-ko);
+            font-size: 16px;
+            font-weight: 400;
             line-height: 1.6;
-            overflow-x: hidden; /* 가로 스크롤 방지 */
-            min-height: 100vh;
-            position: relative;
+            
+            /* 모바일 패딩 */
+            padding: 1rem;
+        }
+
+        /* --- 타이포그래피 (가독성 최적화) --- */
+        h1, h2, h3, h4, h5, h6, [lang="en"] {
+            font-family: var(--font-en); /* 제목과 영문은 Inter */
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 0.5rem;
         }
         
-        /* ------------------------- */
-        /* JS 배경 애니메이션용 컨테이너 스타일 */
-        #particle-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        h2 {
+            font-size: 1.95rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.56rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        img,
+        .profile-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-soft);
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        /* --- 4. 블로그/아티클 레이아웃 (중앙 컨테이너) --- */
+        .main-container {
             width: 100%;
-            height: 100%;
-            z-index: -1; /* 다른 콘텐츠 아래에 배치 */
-            overflow: hidden;
-            pointer-events: none; /* 클릭 방지 */
-        }
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float-up-down 15s infinite ease-in-out alternate;
+            margin: 1rem auto 0 auto;
+            background-color: #fff;
+            border-radius: var(--radius-soft);
+            box-shadow: var(--shadow-soft);
+            padding: 1.5rem;
         }
 
-        @keyframes float-up-down {
-            0% { transform: translateY(0); opacity: 0.5; }
-            100% { transform: translateY(-100vh); opacity: 1; }
-        }
-        /* ------------------------- */
-
-        .header {
-            background-color: rgba(52, 152, 219, 0.85); /* 반투명 배경 */
-            color: white;
-            padding: 30px 20px;
+        .header-tagline {
+            font-family: var(--font-en);
+            font-size: 1.125rem;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header h1 {
-            margin-bottom: 5px;
-            font-size: 2.5em;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
         }
 
-        .header p {
-            font-size: 1.2em;
-            min-height: 1.2em; /* 타이핑 텍스트 영역 확보 */
-        }
-
-        .container {
-            padding: 20px;
-            padding-bottom: 70px; /* 푸터 공간 확보 */
-        }
-
-        .profile-card, .contact, .skills {
-            background-color: rgba(255, 255, 255, 0.95); /* 흰색 배경 반투명 */
-            color: #333;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s ease; /* 호버 효과 추가 */
-        }
-        
-        .profile-card:hover, .skills:hover, .contact:hover {
-            transform: translateY(-5px);
-        }
-
-        .profile-card {
+        /* --- 6. Rounded Soft 컴포넌트 스타일 (버튼) --- */
+        .button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: var(--radius-soft);
+            box-shadow: var(--shadow-soft);
+            font-family: var(--font-en);
+            font-weight: 700;
+            font-size: 1rem;
             text-align: center;
-        }
-        
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            background-color: #3498db;
-            border: 4px solid #fff;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .skills h2 {
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-
-        .skills ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .skills li {
-            background-color: #3498db;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            transition: background-color 0.2s;
+            border: none;
             cursor: pointer;
-        }
-        
-        .skills li:hover {
-            background-color: #2980b9;
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
         }
 
-        .footer {
-            background-color: #2c3e50;
-            color: #7f8c8d;
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        /* --- 7. CSS Grid Modern 그리드 시스템 (카드) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-light);
+            border-radius: var(--radius-soft);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+        }
+        
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* --- 푸터 --- */
+        footer {
             text-align: center;
-            padding: 15px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #777;
         }
-        
-        /* ------------------------- */
-        /* 태블릿 스타일 (min-width: 768px) */
-        /* ------------------------- */
+
+
+        /* --- 3. Mobile First: 데스크탑 브레이크포인트 --- */
         @media (min-width: 768px) {
-            .container {
-                max-width: 700px;
-                margin: auto;
+            body {
+                padding: 2rem;
             }
 
-            .profile-card {
-                display: flex;
-                align-items: center;
-                text-align: left;
+            .main-container {
+                max-width: 768px;
+                margin: 2rem auto;
+                padding: 3rem;
             }
 
-            .profile-image {
-                margin: 0 20px 0 0;
-                width: 150px;
-                height: 150px;
-            }
-
-            .skills ul {
-                justify-content: flex-start;
-            }
-
-            .footer {
-                position: relative;
-                margin-top: 20px;
-            }
-        }
-
-        /* ------------------------- */
-        /* 데스크톱 스타일 (min-width: 1024px) */
-        /* ------------------------- */
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 960px;
-                display: grid;
-                grid-template-columns: 2fr 1fr;
-                gap: 30px;
-                padding-bottom: 20px;
-            }
-
-            .profile-card {
-                grid-column: 1 / 3;
-            }
-
-            .skills {
-                grid-column: 1 / 2;
-            }
-
-            .contact {
-                grid-column: 2 / 3;
-                align-self: start;
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    
-    <div id="particle-container"></div>
-    
-    <header class="header">
-        <h1>이름</h1>
-        <p id="typing-text">직업/역할</p>
+
+    <header>
+        <h1>도광민 <span lang="en">(Gwangmin Do)</span></h1>
+        <p class="header-tagline" lang="en">Aspiring Software Engineer</p>
     </header>
 
-    <main class="container">
-        <section class="profile-card">
-            <div class="profile-image">
+    <main class="main-container">
+
+        <!-- 자기소개 섹션 -->
+        <section id="about">
+            <h2>소개 <span lang="en">(About Me)</span></h2>
+            <p>
+                안녕하세요! 저는 한신대학교 소프트웨어 융합학부 22학번으로 재학 중인 23살 도광민입니다. 
+                현재 데이터베이스 분야에 특히 관심을 두고 깊이 공부해보고 싶지만, 아직 특정 분야를 정하지 않고 다양한 가능성을 탐색하고 있습니다.
+            </p>
+            <p>
+                새로운 기술을 배우고 적용하는 것을 즐기며, 꼼꼼하고 차분한 성격을 바탕으로 주어진 문제를 해결해나가는 과정에서 보람을 느낍니다. (MBTI: ISFP)
+            </p>
+        </section>
+
+        <!-- 관심 분야 섹션 -->
+        <section id="interests">
+            <h2>관심 분야 <span lang="en">(Interests)</span></h2>
+            
+            <div class="grid-container">
+                
+                <div class="card">
+                    <h3>데이터베이스 <span lang="en">(Database)</span></h3>
+                    <p>
+                        데이터를 효율적으로 관리하고 구조화하는 기술에 매력을 느낍니다. SQL과 NoSQL 데이터베이스 시스템의 원리를 배우고 실제 프로젝트에 적용해보고 싶습니다.
+                    </p>
                 </div>
-            <div>
-                <h2>저는...</h2>
-                <p>간단한 자기소개 문구입니다. 무엇을 하는 사람인지, 어떤 목표를 가지고 있는지 설명합니다. 이 텍스트는 태블릿/데스크톱에서 이미지 옆에 배치됩니다.</p>
+
+                <div class="card">
+                    <h3>소프트웨어 개발 <span lang="en">(Software Development)</span></h3>
+                    <p>
+                        웹 프론트엔드부터 백엔드까지, 풀스택 개발자가 되기 위한 기초를 다지고 있습니다. 깨끗하고 유지보수하기 좋은 코드를 작성하는 것에 가치를 둡니다.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>새로운 기술 탐색 <span lang="en">(Exploring New Tech)</span></h3>
+                    <p>
+                        클라우드 컴퓨팅, 인공지능 등 빠르게 변화하는 IT 트렌드에 뒤처지지 않기 위해 꾸준히 학습하고 있습니다.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <section class="skills">
-            <h2>보유 기술</h2>
-            <ul id="skill-list">
-                </ul>
+        <!-- 연락처 섹션 -->
+        <section id="contact">
+            <h2>연락하기 <span lang="en">(Contact)</span></h2>
+            <p>
+                저에 대해 더 궁금한 점이 있거나 함께 이야기하고 싶은 주제가 있다면 언제든지 아래 버튼을 통해 연락주세요.
+            </p>
+            <a href="mailto:your-email@example.com" class="button">
+                메일 보내기 <span lang="en">(Send Email)</span>
+            </a>
         </section>
 
-        <section class="contact">
-            <h2>연락처</h2>
-            <p>이메일: <a href="mailto:email@example.com">email@example.com</a></p>
-            <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
-        </section>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 이름. All rights reserved.</p>
+    <footer>
+        <p>&copy; 2025 Gwangmin Do. All rights reserved.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ------------------------------------------
-            // 1. 보유 기술 목록 동적 생성
-            // ------------------------------------------
-            const skillsData = [
-                "HTML5",
-                "CSS3",
-                "JavaScript (ES6+)",
-                "React",
-                "Node.js",
-                "Git/GitHub",
-                "Responsive Design",
-                "UI/UX Focus"
-            ];
-
-            const skillList = document.getElementById('skill-list');
-
-            skillsData.forEach(skill => {
-                const listItem = document.createElement('li');
-                listItem.textContent = skill;
-                skillList.appendChild(listItem);
-            });
-
-            // * 스킬 목록 클릭 이벤트 (선택적 기능)
-            skillList.addEventListener('click', function(event) {
-                if (event.target.tagName === 'LI') {
-                    console.log(`선택된 기술: ${event.target.textContent}`);
-                }
-            });
-
-
-            // ------------------------------------------
-            // 2. 타이핑 애니메이션 (헤더 텍스트 순환)
-            // ------------------------------------------
-            const typingElement = document.getElementById('typing-text');
-            const roles = ["웹 개발자", "프론트엔드 엔지니어", "반응형 디자인 전문가", "문제 해결사"];
-            let roleIndex = 0;
-            let charIndex = 0;
-
-            function type() {
-                const currentRole = roles[roleIndex];
-                if (charIndex < currentRole.length) {
-                    typingElement.textContent += currentRole.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(type, 100); // 타이핑 속도
-                } else {
-                    setTimeout(erase, 1500); // 다 치고 잠시 대기
-                }
-            }
-
-            function erase() {
-                const currentRole = roles[roleIndex];
-                if (charIndex > 0) {
-                    typingElement.textContent = currentRole.substring(0, charIndex - 1);
-                    charIndex--;
-                    setTimeout(erase, 50); // 지우는 속도
-                } else {
-                    roleIndex = (roleIndex + 1) % roles.length; // 다음 역할로 이동
-                    setTimeout(type, 500); // 다음 역할 타이핑 시작 전 대기
-                }
-            }
-            
-            // 초기 실행
-            type();
-
-            // ------------------------------------------
-            // 3. 움직이는 배경 (Particle Animation)
-            // ------------------------------------------
-            const particleContainer = document.getElementById('particle-container');
-            const particleCount = 40; // 생성할 입자 수
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // 랜덤 크기
-                const size = Math.random() * 8 + 3; // 3px ~ 11px
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // 랜덤 위치 (화면 전체)
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // 랜덤 애니메이션 속도 및 지연
-                particle.style.animationDuration = `${Math.random() * 15 + 10}s`; // 10s ~ 25s
-                particle.style.animationDelay = `${Math.random() * -15}s`; // 음수 지연으로 즉시 시작
-                
-                particleContainer.appendChild(particle);
-            }
-        });
-    </script>
 </body>
 </html>
