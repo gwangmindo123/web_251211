@@ -275,6 +275,53 @@
                 font-size: 0.85rem; /* 카드 내부 p 태그 글자 크기 조정 */
             }
         }
+        
+        /* --- 추가: 헤더 연락처 정보 스타일 --- */
+        .header-contact {
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            color: #ecf0f1;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .header-contact a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* --- 추가: Form 스타일 --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-family: var(--font-ko);
+            font-size: 1rem;
+            width: 100%;
+        }
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
     </style>
 </head>
 <body>
@@ -284,6 +331,10 @@
     <header>
         <h1>도광민 <span lang="en">(Gwangmin Do)</span></h1>
         <p class="header-tagline" lang="en">Aspiring Software Engineer</p>
+        <div class="header-contact">
+            <span>📞 <a href="tel:010-8682-9046">010-8682-9046</a></span>
+            <span>✉️ <a href="mailto:as1545915@hs.ac.kr">as1545915@hs.ac.kr</a></span>
+        </div>
     </header>
 
     <main class="main-container">
@@ -333,11 +384,30 @@
         <section id="contact">
             <h2>연락하기 <span lang="en">(Contact)</span></h2>
             <p>
-                저에 대해 더 궁금한 점이 있거나 함께 이야기하고 싶은 주제가 있다면 언제든지 아래 버튼을 통해 연락주세요.
+                아래 폼을 통해 메시지를 남겨주시면 빠른 시일 내에 회신드리겠습니다.
             </p>
-            <a href="javascript:void(0);" id="sendEmailButton" class="button">
-                메일 보내기 <span lang="en">(Send Email)</span>
-            </a>
+            
+            <!-- 
+                [사용자 안내]
+                이 폼을 사용하려면 Formspree.io에 가입하여 새 폼을 만드세요.
+                그런 다음 아래 action의 "YOUR_UNIQUE_ID" 부분을 본인의 폼 ID로 교체하세요.
+                예: action="https://formspree.io/f/abcdefgh"
+            -->
+            <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">메시지</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="button">메시지 보내기</button>
+            </form>
         </section>
 
     </main>
@@ -349,7 +419,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // ------------------------------------------
-            // 3. 움직이는 배경 (Particle Animation)
+            // 1. 움직이는 배경 (Particle Animation)
             // ------------------------------------------
             const particleContainer = document.getElementById('particle-container');
             const particleCount = 50; // 생성할 입자 수
@@ -374,30 +444,6 @@
                 
                 particleContainer.appendChild(particle);
             }
-
-            // ------------------------------------------
-            // 4. JavaScript 기반 메일 보내기 기능
-            // ------------------------------------------
-            const sendEmailButton = document.getElementById('sendEmailButton');
-            sendEmailButton.addEventListener('click', function(event) {
-                const recipientEmail = 'as1545915@hs.ac.kr';
-                const subjectInput = prompt('메일 제목을 입력하세요:', '문의');
-                
-                // 사용자가 취소를 누르면 중단
-                if (subjectInput === null) {
-                    return;
-                }
-
-                const bodyInput = prompt('메일 내용을 입력하세요:', '안녕하세요, 도광민님.');
-
-                // 사용자가 취소를 누르면 중단
-                if (bodyInput === null) {
-                    return;
-                }
-
-                const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subjectInput)}&body=${encodeURIComponent(bodyInput)}`;
-                window.location.href = mailtoLink;
-            });
         });
     </script>
 
