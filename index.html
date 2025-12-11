@@ -335,7 +335,7 @@
             <p>
                 저에 대해 더 궁금한 점이 있거나 함께 이야기하고 싶은 주제가 있다면 언제든지 아래 버튼을 통해 연락주세요.
             </p>
-            <a href="mailto:as1545915@hs.ac.kr" class="button">
+            <a href="javascript:void(0);" id="sendEmailButton" class="button">
                 메일 보내기 <span lang="en">(Send Email)</span>
             </a>
         </section>
@@ -374,6 +374,30 @@
                 
                 particleContainer.appendChild(particle);
             }
+
+            // ------------------------------------------
+            // 4. JavaScript 기반 메일 보내기 기능
+            // ------------------------------------------
+            const sendEmailButton = document.getElementById('sendEmailButton');
+            sendEmailButton.addEventListener('click', function(event) {
+                const recipientEmail = 'as1545915@hs.ac.kr';
+                const subjectInput = prompt('메일 제목을 입력하세요:', '문의');
+                
+                // 사용자가 취소를 누르면 중단
+                if (subjectInput === null) {
+                    return;
+                }
+
+                const bodyInput = prompt('메일 내용을 입력하세요:', '안녕하세요, 도광민님.');
+
+                // 사용자가 취소를 누르면 중단
+                if (bodyInput === null) {
+                    return;
+                }
+
+                const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subjectInput)}&body=${encodeURIComponent(bodyInput)}`;
+                window.location.href = mailtoLink;
+            });
         });
     </script>
 
